@@ -1,0 +1,12 @@
+1) Pokrenuti pgAdmin4. 
+2) Napraviti localhost server
+3) Kreirati bazu podataka koja se zove "TBP_projekt"
+4) U Command prompt-u otvoriti putanju gdje je instaliran PosgreSQL te se locirati unutar "bin" datoteke
+5) Upisati naredbu: "psql -U nazivKorisnikaBaze -d TBP_projekt -1 -f C:\Users\Luka-PC\Desktop\pg_dump_TBP_projekt.sql (ovdje upisati putanju gdje se nalazi pg_dump baze podataka)
+6) Unos lozinke korisnika 
+7) Otvoriti datoteku TBP_projekt
+8) Unutar datoteke nalazi se TBP_projekt.sln file te ga pokrenuti
+9) U klasi koja se zove "Povezivanje_na_bazu.cs" pronaći funkciju koja se zove "Spoji()"
+10) Potrebno je postaviti User ID= na ime vašeg korisnika
+11) Potrebno je postaviti Password= na lozinku vašeg korisnika
+12) Sa tipkon F5 pokrenuti aplikaciju

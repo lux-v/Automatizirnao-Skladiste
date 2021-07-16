@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{96C57EB6-9896-4A68-8EC1-94A70F147F26}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TBP_projekt</RootNamespace>
+    <AssemblyName>TBP_projekt</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=5.0.1.1, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>packages\Npgsql.5.0.1.1\lib\netstandard2.0\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Channels.4.7.0\lib\netstandard2.0\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form_Autodijelovi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form_Autodijelovi.Designer.cs">
+      <DependentUpon>form_Autodijelovi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form_DodavanjeNovogDijelaUBazu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form_DodavanjeNovogDijelaUBazu.Designer.cs">
+      <DependentUpon>form_DodavanjeNovogDijelaUBazu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form_Narudzbe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form_Narudzbe.Designer.cs">
+      <DependentUpon>form_Narudzbe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form_PopustiProizvoda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form_PopustiProizvoda.Designer.cs">
+      <DependentUpon>form_PopustiProizvoda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form_PovijestEvidencijeSkladista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form_PovijestEvidencijeSkladista.Designer.cs">
+      <DependentUpon>form_PovijestEvidencijeSkladista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form_PovijestNarudzbiAutodijelova.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form_PovijestNarudzbiAutodijelova.Designer.cs">
+      <DependentUpon>form_PovijestNarudzbiAutodijelova.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form_TrenutnoStanjeSkladista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form_TrenutnoStanjeSkladista.Designer.cs">
+      <DependentUpon>form_TrenutnoStanjeSkladista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Glavni_Izbornik.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Glavni_Izbornik.Designer.cs">
+      <DependentUpon>Glavni_Izbornik.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Povezivanje_na_bazu.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="unosAutomobila.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="unosAutomobila.Designer.cs">
+      <DependentUpon>unosAutomobila.cs</DependentUpon>
+    </Compile>
+    <Compile Include="unosProizvodaca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="unosProizvodaca.Designer.cs">
+      <DependentUpon>unosProizvodaca.cs</DependentUpon>
+    </Compile>
+    <Compile Include="unosVrsteDijela.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="unosVrsteDijela.Designer.cs">
+      <DependentUpon>unosVrsteDijela.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="form_Autodijelovi.resx">
+      <DependentUpon>form_Autodijelovi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form_DodavanjeNovogDijelaUBazu.resx">
+      <DependentUpon>form_DodavanjeNovogDijelaUBazu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form_Narudzbe.resx">
+      <DependentUpon>form_Narudzbe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form_PopustiProizvoda.resx">
+      <DependentUpon>form_PopustiProizvoda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form_PovijestEvidencijeSkladista.resx">
+      <DependentUpon>form_PovijestEvidencijeSkladista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form_PovijestNarudzbiAutodijelova.resx">
+      <DependentUpon>form_PovijestNarudzbiAutodijelova.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form_TrenutnoStanjeSkladista.resx">
+      <DependentUpon>form_TrenutnoStanjeSkladista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Glavni_Izbornik.resx">
+      <DependentUpon>Glavni_Izbornik.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="unosAutomobila.resx">
+      <DependentUpon>unosAutomobila.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="unosProizvodaca.resx">
+      <DependentUpon>unosProizvodaca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="unosVrsteDijela.resx">
+      <DependentUpon>unosVrsteDijela.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
