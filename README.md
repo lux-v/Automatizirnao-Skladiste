@@ -10,6 +10,9 @@ Cilj ovog projekta je izraditi bazu podataka kojoj je glavni fokus na automatiza
 
 Na fotografiji ispod prikazan je model baze podataka **ERA** koji je korišten kako bi se izradila baza podataka, odnosno cjelokupna aplikacija. Za izradu modela korišten je alat Navicat 15 koji omogućava grafičko sučelje pri kreiranju baze.
 
+
+![TBP_Project_ERA](https://user-images.githubusercontent.com/61590027/126403863-f651fecd-a12d-4b04-8d5f-654690993977.png)
+
 Model se sastoji od 10 entiteta koji se koriste za uspješno vođenje skladišta autodijelova. 
 
 
@@ -424,4 +427,154 @@ Ova funkcija ima jednostavnu zadaću. Potrebno je svaki put nakon što se ažuri
   	LANGUAGE plpgsql VOLATILE
  	 COST 100
 
+# Aplikacija
+
+Nakon kreiranja tablica baze podataka, okidača i funkcija potrebno je izraditi grafičko sučelje same aplikacije i implementirati određene funkcionalnosti kako bi aplikacija funkcionirala onako kako treba. Za izradu dizajna aplikacije koristit ćemo se jednostavnim C sharp form-ama na kojima će se nalaziti objekti u koje će korisnik moći upisivati podatke. Taj dio biti će objašnjen u sljedećem poglavlju. Spajanjem na bazu dobit ćemo mogućnost upravljanjem podacima baze podataka koristeći aplikaciju. Na taj način se olakšava korištenje baze podataka i obavljanja osnovnih operacija unosa, ažuriranja i brisanja podataka iz baze. Za početak potrebno je spojiti se na bazu podataka. 
+
+## Povezivanje sa bazom
+
+Kako bi se povezali sa bazom podataka koristimo {Npgsql} dodatak koji upravlja konekcijom između baze podataka i aplikacije. Na samom početku potrebno je kreirati klasu "Povezivanje\_na\_bazu.cs" pomoću koje ćemo uspostavljati konekciju sa bazom svaki put kada budemo trebali dohvatiti ili pohraniti podatke u bazu podataka. Unutar te klase se nalaze dvije osnovne funkcije, a to su funkcija "Spoji()" i funkcija "prekiniKonekciju()". Za uspostavljanje konekcije koristi ćemo Npgsql ( https://www.npgsql.org/doc/installation.html) dodatak. Kako bi uspostavili konekciju, potrebno je unesti odreeđene parametre kao što su server, port, korisnika, lozinku korisnika te naziv baze podataka. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404180-39d05204-6dba-469c-bd51-305d5326f43d.png">
+</p>
+
+
+
+## Učitavanje podataka iz baze
+
+Kako bi učitali podatke koji su zapisani u bazi i prikazali ih u našoj aplikaciji, moramo zadati upit nad bazom. Upit koji je vidljiv sa slike dohvaća sve autodijelove iz baze podataka te prikazuje šifru autodijelova, naziv, naziv proizvođača, naziv autumobila za kojeg je dio namijenjen, vrstu autodijela, karakteristike poput namjene i pakiranja, cijene autodijelova, te podatak o tome je li proizvod u prodaji ili ne. Nakon što smo postavili željeni upit potrebno ga je provesti nad bazom i to izvršavamo pomoću funkcije {NpgsqlDataAdapter}. Funkciji prosljeđujemo željeni upit kao prvi parametar, a u drugi parametar unosimo konekciju nad bazom. Nakon što smo dohvatili podatke iz baze potrebno ih je pridružiti u određen "DataSet" pomoću kojeg dohvaćene podatke možemo isčitati, odnosno prikazati.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404189-7ecf9a27-2d03-41ff-961c-3095d1ac7c0f.png">
+</p>
+
+## Unos novog podatka u bazu
+
+U slučaju unosa autodijela u bazu potrebno je bazi dati sve potrebne informacije kako bi ona mogla taj podatak zapisati u željenu tablicu. Na slici ispod nalazi se primjer unosa novog popusta u tablicu "Popusti". Za početak potrebno je ostvariti konekciju sa bazom pomoću funkcije "database.Spoji();".Ta funkcija se nalazi u klasi koju smo kreirali u prvom koraku naše aplikacije. Nakon spajanja na bazu koristimo {INSERT INTO} naredbu za unos svih željenih vrijednosti u bazu podataka. Vrijednosti koje želimo unijeti u bazu su zapisane u varijablama "pocetni\_datum", "zavrsni\_datum", "txtCijena", "idOdabranog". Te vrijednosti je korisnik samostalno unio koristeći aplikaciju, gdje je pri odabiru autodijela koji će biti na popustu morao upisati novu cijenu, datum od kada vrijedi popust te datum do kada vrijedi popust. Nakon toga, izvršavamo naredbu nad bazom te na taj način unosimo podatke u bazu. Nakon unosa, prekidamo konekciju sa bazom pomoću naredbe "database.prekiniKonekciju();".
+
+<p align="center">
+  <img  src="https://user-images.githubusercontent.com/61590027/126404233-24de6948-f445-4226-aede-dd5b25dd6c1e.png">
+</p>
+
+
+## Ažuriranje i brisanje podataka
+
+Ažuriranje baze se odvija na isti način kao i unos. Jedina razlika je u naredbi koja se provodi nad bazom podataka. Na slici ispod nalazi se naredba koja u tablici "Narudžba" ažurira onu narudžbu koju je korisnik odabrao. Nakon što je korisnik pritisnuo tipku "Zaprimljena narudžba" time je označio da je narudžba stigla u skladište. Nakon ažuriranja tablice "Narudžba" odaziva se okidač koji pokreće odgovarajuću funkciju te se proces narudžbe automatski nastavlja.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404276-6ce135e1-4cfa-42e8-b9d6-cc775a323edc.png">
+</p>
+
+
+Brisanje se provodi na isti način kao i ažuriranje i unos u bazu osim razlike u korištenoj naredbi, "DELETE".
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404294-397c8ec8-5bcf-448a-8fe7-6e213af1e132.png">
+</p>
+
+
+
+# Primjeri korištenja
+
+Nakon završetka implementacije dobili smo finalnu aplikaciju koja ima mogućnosti upravljanja podacima iz baze podataka. U poglavljima iznad objašnjene su neke osnove operacije nad bazom kao što su unosi, ažuriranja i brisanja. Nakon objašnjenog programskog dijela slijedi objašnjavanje svih mogućnosti koje aplikacija ima. Dakle, u ovom poglavlju biti će objašnjene sve forme sa kojima se korisnik može susresti u radu sa aplikacijom. Biti će objašnjeno kada se koja forma pojavljuje, što se u koju formu unosi, čemu određena forma služi i tako dalje. 
+
+
+## Glavni izbornik
+
+Nakon pokretanja programa pomoću tipke "F5" otvara se početna forma koja predstavlja glavni izbornik aplikacije. Korisnik u ovoj formi nema puno mogućnosti te ova forma služi isključivo za pristup drugim formama. Dakle, korisnik može pristupiti formi {Autodijelovi}, {Trenutno stanje}, {Popusti proizvoda}, {Narudžbe}, {Povijest evidencije skladišta} i formi {Povijest narudžbi autodijelova}. Dakle, klikon na neku od ponuđenih opcija otvara se nova forma.!
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404927-57adc34d-55f6-44f9-a6d1-bb63e8e2e95c.png">
+</p>
+
+
+## Autodijelovi
+
+Nakon što smo u formi "Glavni izbornik" kliknuli na tipku "Autodijelovi" otvara se forma koja je vidljiva na slici ispod. U ovoj formi korisniku je omogućen uvid u sve autodijelove koji su zapisani u bazi podataka. Autodijelovi se prikazuju u data grid pogledu, odnosno tablici. Tablica se sastoji od stupaca koji pobliže opisuju svaki autodio koji je zapisan u bazu. Svaki autodio ima svoju identifikaciju a to je prvi stupac naziva "Šifra". Također, svaki autodio ima i ostale karakteristike poput kojoj marki automobila dio pripada, naziv, proizvođač autodijela, je li autodio u prodaji i tako dalje. Korisnik ima mogućnost odabira određenog autodijela te mu promijeniti vrijednost stupca "U prodaji" i stupca "Nije u prodaji". Isti proizvod ne može imati u isto vrijeme i vrijednost "U prodaji" i vrijednost "Nije u prodaji". 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404461-176c5291-f7ec-45b2-b2ea-6f018b559d05.png">
+</p>
+
+
+ Kako bi se korisnik lakše snalazio sa sveukupnim podacima omogućeno mu je filtriranje autodijelova po određenim parametrima kao što su vrsta autodijela, proizvođač, te kojoj je marki automobila dio namjenjen. Također, korisnik može autodio pretražiti po imenu autodijela gdje korisnik upisuje naziv autodijela i dobiva filtirani rezultat svih onih dijelova kojima se ima poklapa sa korisnikovim upisom. 
+ Ako na primjer korisnik želi pretražiti sve autodijelove kojima je proizvođač "Bottari" klikom na izbornik izlastava se popis svih proizvođača koji su dostupni iz baze podataka, te odabire traženi naziv, "Bottari", pri čemu se redovi u tablici autodijelova filtiraju. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404484-1fe5584a-034e-4f15-97bc-60986d9190a0.png">
+</p>
+
+
+
+Ukoliko korisnik pritisne na tipku "Dodaj novi dio u bazu" koja se vidi na Slici 8, tada se otvara novi prozor u kojem korisnik ima mogućnost dodati novi proizvod u bazu podataka pri čemu je potrebno unesti određene parametre za svaki autodio. Kako bi unos bio još lakši, kada korisnik krene pisati naziv vrste autodijela, proizvođača i marke automobila, automatski mu se ponude već one vrste, proizvođači i marke automobila koji su već zapisani u bazi podataka.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404524-090af612-0bf3-44be-9291-a5757541434c.png">
+</p>
+
+
+Nakon klika na tipku "Dodaj novi dio u bazu"(Slika 10) zapis se unosi u bazu podataka te u obliku iskočnog prozora ispisuje se informacija o uspješnom unosu. Ukoliko proizvođač ili vrsta ili marka automobila kojeg je korisnik unio ne postoji zapisan u bazi podataka, korisniku se prikazuje prozor koji je vidljiv na slici 11. Korisnik u tom trenutku ima opciju unosa novog proizvođača u bazu ili opciju "Izađi" pri kojoj se novi zapis {ne dodaje u bazu}.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404543-561ea2f1-e1ea-412e-9430-f5392112364b.png">
+</p>
+
+
+# Narudžba
+
+U ovoj formi (slika 12) korisniku je omogućen prikaz svih narudžbi koje do sada nisu obrađene. Ove narudžbe su vidljive u prvoj tablici sa slike 12. One mogu imati tri statusa, a to su "U obradi", "Da" i status "Ne" pri čemu status "U obradi" označava da narudžba još nije stigla na odredište. U slučaju da je narudžba fizički stigla na odrediše tada korisnik pritišće tipku "Narudžba stigla" i time narudžba mijenja svoj status u "Da", te u slučaju da narudžba nije stigla u očekivanom vremenu, korisnik pritišće tipku "Narudžba nije stigla" te se time postavlja status odabrane narudžbe na "Ne". Autodio se može naručiti na dva načina:
+
+1. način: Narudžba se izrađuje odmah pri unosu novog autodijela u bazu podataka
+
+2. način: Narudžba se izrađuje onda kada trenutna količina dijelova padne ispod zadane minimalne količine autodijelova
+
+Nakon što korisnik potvrdi primitak/ne primitak narudžbe, tada se odazove okidač koji poziva odgovarajuću funkciju koja sprema podatke u tablicu "PovijestNarudžbi". Povijest svih narudžbi mogu se vidjeti odmah u drugoj tablici, a podaci koji se spremaju su datum stvaranja narudžbe,  datum primitka proizvoda, koja je količina naručena i tako dalje. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404580-42683dfc-f861-4776-840c-723ae9192a35.png">
+</p>
+
+
+# Stanje skladišta
+
+Nakon narudžbi autodijelova, podaci se spremaju u tablicu "Stanje\_Skladista", a podaci iz te tablice mogu se vidjeti u tablici sa slike 13. U ovoj tablici vidljivi su svi oni autodijelovi koji su trenutno dostupni u nekoj količini u skladištu. Tablica prikazuje osnovne informacije o autodijelovima kao što su trenutna količina autodijelova na skladištu, minimalna količina, te njihovu poziciju unutar skladišta, koja je zabilježena pomoću podatka o redu i dijelu na kojem se skladišti proizvod. Korisniku se daje na mogućnost brisanja određene stavke iz skladišta, te isto tako i unos nove stavke u stanje skladišta. 
+Ukoliko korisnik želi unijeti novi autodio u skladište, prvo mora odabrati koji točno proizvod želi unijeti. Svi autodijelovi koji su zapisani u bazi podataka su vidljivi iz padajućeg izbornika. Dakle, nakon što korisnik pritisne na padajući izbornik, odabire proizvod koji želi unijeti, određuje mu lokaciju sa parametrima "Red" i "Dio" i pritišće gumb "Evidentiraj u skladište". Nakon toga, automatski se stvara nova narudžba koja će biti vidljiva u aplikaciji. Korisnik ima mogućnost ažuriranja trenutne količine odabranog autodijela. Novu količinu može unijeti u polje iza opisa "Količina nakon prodaje". Nakon unosa, količina se ažurira. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404608-c8866ee1-a33c-4c33-b9cc-3fcb2124c976.png">
+</p>
+
+
+# Evidencija skladišta
+
+Dakle, sve promjene u skladištu bilježe se u posebnu tablicu "Informacije\_skladišta". U aplikaciji je prikaz povijesti skladišta dostupan nakon klika na tipku "Povijest evidencije skladišta". Prikaz povijesti stanj skladišta vidljiv je na slici 14. Korisnik u ovoj tablici ima prikaz svih promjena koje su se dešavale u skladištu. 
+
+Mi ćemo za primjer objašnjavanja uzeti prva dva reda tablice te pomoću njih objasniti kako povijest funkcionira. Dakle,  gledamo red u kojemu je vrijednost "ID" stupca jednaka 296. Ako pogledamo staru i novu količinu tog autodijela, primjetit ćemo da ona iznosi 0 i to nam govori da taj dio još nikada nije bio zabilježen u stanju skladišta, odnosno to nam govori da je taj autodio {novi} zapis autodijelova u bazi podataka. Prisjetimo se kako funkcionira dodavanje novog zapisa. U prvom koraku upisujemo parametre za određeni autodio, parametri su naziv, vrsta proizvoda, proizvođač, cijena, minimalna količina i tako dalje. Nakon što smo potvrdili unos, automatski se stvara narudžba novounesenog autodijela. Nakon što je korisnik potvrdio {primitak} narudžbe, autodio se sprema u stanje skladišta. Ako pogledamo prvi redak(ID=297) tablice sa slike 14, primjetit ćemo da je vrijednost "Stara količina" = 0 i vrijednost "Nova količina" = 10. Ovaj podatak nam govori da je autodio zabilježen u trenutnom stanju skladišta i time mu se pripisuje opis "dodan je dio u skladište." Ukoliko se količina autodijelova smanji, podatak će se bilježiti u povijest evidencije skladišta sa opisom "Oduzeta je količina sa skladišta". Dakle, tablica je vrlo jednostavna i pruža nam sve informacije vezane za promjene u skladištu. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404667-07a5bb03-5b94-494f-a4ff-f0b5a2ea98e5.png">
+</p>
+
+# Povijest narudžbi
+
+U ovom prozoru (slika 15) korisniku je omogućen prikaz u povijest svih narudžbi koje su se provele u skladištu autodijelova. Ova forma pokazuje podatke temeljen na istom principu kao i u prethodno objašnjenom poglavlju "Evidencija skladišta". 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404702-361f11ba-119b-4f8d-bda8-7e2d5dc2dab4.png">
+</p>
+
+
+# Popusti 
+
+Ukoliko korisnik želi odrediti koji će proizvod bit na popustu u tome će mu pomoću sljedeći prozor(slika 16). U ovoj formi korisnik ima prikaz svih autodijelova koji su trenutno zabilježeni u bazi podataka. Ima mogućnost odabira pojedinog autodijela te mu se nudi mogućnost odabira početnog datuma popusta i završnnog datuma popusta. Nakon toga, sve što treba je unijeti novu popust cijenu i potvrditi unos. Novi unos biti će mu prikazan u drugoj tablici na istoj formi. Kako bi se lakše snašao u hrpi podataka, nudi mu se opcija filtriranja proizvoda po kriterijima "Na popustu", "Nije na popustu" i po kriteriju "Prikaži sve". Također, u slučaju krivo unesenog popusta, može obrisati određenu stavku tipkom "Obriši".
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61590027/126404737-3c5608c9-ef96-40ce-8760-413da8a40f65.png">
+</p>
+
+
+# Zaključak
+
+Cijeli proces od postavljanje servera i izrade baze, pa do programiranja samog sučelja aplikacije bio je vrlo zanimljiv i koristan. Cilj je bio izraditi bazu podataka koja će imati karakeristike aktivnih i temporalnih baza podataka. Savršen primjer za izradu takvih baza su skladišta određenih proizvoda, u ovom slučaju autodijelova. U izradi baze podatak bili su korišteni i temporalni elementi baze podataka isto kao i aktivni komponenti. Za temporalne baze podataka specifična je prisutnost vremenske komponente koja se dijeli na stvarno vrijeme i transakcijsko vrijeme. Stvarno vrijeme označava "vremenski žig" nekog događaja dok tansakcijsko vrijeme predstavlja interval između neka dva događaja. Temporalni dio baza podataka je u ovom primjeru pretežito bio korišten u nekakvoj okolini koja je pohranjivala podatke o "povijesti" izvođena pojedine aktivnosti. Također, kod određivanja trajanja popusta za određen autodio prisutna je i vremenska komponenta "budućnosti", odnosno korisnik ima mogućnost odabira trajanja popusta koji će biti za npr. mjesec dana. Aktivne baze podataka su veoma korisne i mislim da je u današnje vrijeme rijetkost da baze podataka {ne} koriste aktivnu komponentu, odnosno okidače i okidačke funkcije. One uvelike olakšavaju održavanje baze podataka, pri čemu se štedi vrijeme, ali i čuva preciznost, odnosno smanjuje se mogućnost pogreške zbog toga što računalo izvšrava određene funkcije, a ne čovjek. 
 
