@@ -1,4 +1,4 @@
-# Automatizirnao skladište
+# Automatizirano skladište
 
 ## Sažetak 
 
