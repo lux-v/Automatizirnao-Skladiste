@@ -421,7 +421,7 @@ Ova funkcija ima jednostavnu zadaću. Potrebno je svaki put nakon što se ažuri
     RETURN NEW;
     END;
     END$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
+  	LANGUAGE plpgsql VOLATILE
+ 	 COST 100
 
 
