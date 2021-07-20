@@ -24,7 +24,7 @@ Vrijednost atributa "{minimalna\_kolicina}" bitna je kod automatskog vođenja sk
 
 
 
-**Proizvodac** 
+**Proizvođač** 
 
 U ovoj tablici spremaju se podaci o mogućim proizvođačima određenog prozivoda. Svaki autodio ima svog proizvođača. Kako bi znali identificirati jednog proizvođača od drugog koristimo vrijednost \bf{id}. Tablica "Proizvodac" sadrži {naziv} i {info} u kojem dodjeljujemo svakom proizvođaču određen opis prepoznatljiv za njegov brend.
  
@@ -47,7 +47,7 @@ Kako svaki autodio spada u neku određenu vrstu ili kategoriju moramo napraviti 
 Sve ima svoje karakteristike, pa tako i autodijelovi, a neke osnovne karakteristike koje mogu biti  korisne kod kupovine autodijelova su njihove dimenzije pa tako tablica "Karakteristike" sadrži atribute poput {namjena}, {pakiranje}, {boja}, {duzina} i {sirina}. Svaka od karakteristika jedinstvena je po svom primarnom ključu {id}.
    
 
-**Stanje\_na\_skladistu** 
+**Stanje na skladištu** 
 
 Jedna od glavnih svojstva ove aplikacije je uvid u stanje skladišta pa radi toga možemo i pronaći ovu tablicu u ERA modelu. U ovoj tablici sprema se trenutna količina autodijelova na skladištu, kao i njihova pozicija u skladištu. Ovi su podaci zapisani u atributima {kolicina}, {red}, {dio}. Ova tablica se sastoji od primarnog, ali ujedno i vanjskog ključa na tablicu "Autodijelovi". Ovo je {nužno} zbog toga što se ne smije desiti da u skladištu postoje dva identična autodijela koji svaki za sebe ima određenu količinu ili različito mjesto skladištenja po atributu "red" i atributu "dio". Vanjski ključ "povijestNarudzba\_id" nam je potreban kako bi se upotpunio proces narudžbe proizvoda. Taj dio biti će objašnjen u kasnijim poglavljima. Atribut naziva "za\_sortiranje" slobodno zanemarimo, njega sam iskoristio kako bi dobio ljepši prikaz podataka u samoj aplikaciji.
  
@@ -59,13 +59,13 @@ Nakon svake izmjene u tablcii "Stanje\_Skladista" vodi se evidencija koja se zap
  
  
  
-**Narudzba**
+**Narudžba**
 
 U ovoj tablici korisniku su vidljive sve aktivne narudžbe koje je kreirao on sam ili koje su automatski aktivirane preko okidača. Ukoliko zadana minimalna količina padne ispod trenutne količine na skladištu, automatski se dodaje nova nardužba. Korisnik također ima mogućnost unosa narudžbe u slučaju kada je to potrebno. Nakon što se naruči novi proizvod, taj podatak se bilježi u tablicu narudžba sa atributima kao što su datum\_narucivanja, kolicina\_narucivanja, opis te atributom narudzba\_zaprimljena. Ukoliko narudžba nije zaprimljena, količina na stanju skladišta se {ne} ažurira. Narudžba se može obaviti i prilikom unosa novog autodijela u bazu podataka preko tablice "Autodijelovi" stoga u je u tablici "Narudzba" potrebno referencirati vanjski ključ prema tablici "Autodijelovi". 
  
  
  
-**PovijestNarudzbi** 
+**Povijest narudžbi** 
 
 Ova tablica ima funkciju bilježenja svih narudžbi koje su se izvršile nad bazom podataka. Narudžbe mogu imati {tri stanja}, a to su: "U obradi", "Da", "Ne". Stanje "U obradi" znači da je narudžba još uvijek u tijeku te da korisnik još uvijek nije dobio narudžbu na adresu. Ukoliko narudžba stigne na adresu tada korisnik potvrdi primitak narudžbe čime narudžba prelazi u stanje "Da". Ukoliko narudžba nije stigla na adresu u nekom očekivanom periodu vremena, korisnik potvrđuje da narudžba {nije} stigla te narudžba prelazi u stanje "Ne". Podaci koje tablica "PovijestNarudzbi" pohranjuje o svakoj narudžbi su datum naručivanja, datum primitka, količina naručivanja te opis narudžbe u kojoj se sprema podatak o tome tko je izvršio narudžbu, korisnik ili neka od okidačkih funkcija. 
   
@@ -83,7 +83,7 @@ U izradi baze podataka koristio sam alat pgAdmin 4 i Navicat 15 koji su dosta je
 # Kreiranje tablica
 
 
-## Proizvodac 
+## Proizvodač
 
  {id} - Primarni ključ ;
  {naziv} - Naziv proizvođača;
@@ -202,7 +202,7 @@ U izradi baze podataka koristio sam alat pgAdmin 4 i Navicat 15 koji su dosta je
         CONSTRAINT "vk_vrsta" FOREIGN KEY ("vrsta_id") REFERENCES "public"."Vrsta" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION);
         
         
-## Stanje Skladista
+## Stanje skladišta
 
 {autodijelovi\_id} - Primarni i ujedno vanjski ključ na tablicu "Autodijelovi". Ni u jednom trenutku se ne može desiti da jedno te isti autodio bude spremljen na dva mjesta u skladištu.;
 {kolicina} - Trenutna količina pojedinog autodijela na skladištu;
@@ -230,7 +230,7 @@ U izradi baze podataka koristio sam alat pgAdmin 4 i Navicat 15 koji su dosta je
         CONSTRAINT "vk_autodijelovi" FOREIGN KEY ("autodijelovi_id") REFERENCES "public"."Autodijelovi" ("sifra") ON DELETE NO ACTION ON UPDATE NO ACTION,
         CONSTRAINT "vk_povijestNarudzbi" FOREIGN KEY ("povijestNarudzba_id") REFERENCES "public"."PovijestNarudzbi" ("id_povijestNarudzbi") ON DELETE NO ACTION ON UPDATE NO ACTION);
         
-## Narudzba
+## Narudžba
         
 {id\_narudzba} -Primarni ključ;
 {datum\_narucivanja} - Datum kada je naručen autodio;
@@ -259,7 +259,7 @@ U izradi baze podataka koristio sam alat pgAdmin 4 i Navicat 15 koji su dosta je
         CONSTRAINT "vk_stanje_skladista" FOREIGN KEY ("stanje_skladista_id") REFERENCES     "public"."Stanje_Skladista" ("autodijelovi_id") ON DELETE NO ACTION ON UPDATE NO ACTION);        
 
 
-## Povijest narudzbi
+## Povijest narudžbi
 
 {id\_povijestNarudzbi} - Primarni ključ;
 {pdatum\_narucivanja} - Datum kada je proizvod naručen;
@@ -313,7 +313,7 @@ U izradi baze podataka koristio sam alat pgAdmin 4 i Navicat 15 koji su dosta je
         CONSTRAINT "vk_autodijelovi_Id" FOREIGN KEY ("pautodijelovi_id") REFERENCES "public"."Autodijelovi" ("sifra") ON DELETE NO ACTION ON UPDATE NO ACTION);
         
 
-## Informacije Skladista
+## Informacije skladišta
         
 {id} - Primarni ključ;
 {datum\_evidencije} - Datum koji označava kada se desila neka promjena u skladištu;
