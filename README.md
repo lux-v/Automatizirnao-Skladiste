@@ -436,7 +436,7 @@ Nakon kreiranja tablica baze podataka, okidača i funkcija potrebno je izraditi 
 Kako bi se povezali sa bazom podataka koristimo {Npgsql} dodatak koji upravlja konekcijom između baze podataka i aplikacije. Na samom početku potrebno je kreirati klasu "Povezivanje\_na\_bazu.cs" pomoću koje ćemo uspostavljati konekciju sa bazom svaki put kada budemo trebali dohvatiti ili pohraniti podatke u bazu podataka. Unutar te klase se nalaze dvije osnovne funkcije, a to su funkcija "Spoji()" i funkcija "prekiniKonekciju()". Za uspostavljanje konekcije koristi ćemo Npgsql ( https://www.npgsql.org/doc/installation.html) dodatak. Kako bi uspostavili konekciju, potrebno je unesti odreeđene parametre kao što su server, port, korisnika, lozinku korisnika te naziv baze podataka. 
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/61590027/126404180-39d05204-6dba-469c-bd51-305d5326f43d.png">
+  <img src="TBP_projekt/packages/126404180-39d05204-6dba-469c-bd51-305d5326f43d.png">
 </p>
 
 
